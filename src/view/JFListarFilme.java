@@ -105,6 +105,26 @@ public class JFListarFilme extends JFrame {
 		contentPane.add(btnEditar);
 		
 		JButton btnNewButton_1 = new JButton("Excluir Filme");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(JTFilmes.getSelectedRow() != -1) {
+					
+					int opcao = JOptionPane.showConfirmDialog(null, "Você deseja excluir o filme selecionado?", "Exclusão", JOptionPane.YES_NO_OPTION); // janela de confirmação de exclusão
+				
+					if(opcao == 0) { // 0 = Sim, 1 = Não
+						FilmeDAO dao = new FilmeDAO(); // chama a classe FilmeDAO();
+						Filme f = new Filme(); // cria o objeto filme
+						f.setIdFilme((int) JTFilmes.getValueAt(JTFilmes.getSelectedRow(),0));
+						dao.delete(f);
+					}
+					// operacao do botao
+				} else {
+					JOptionPane.showMessageDialog(null, "Selecione um filme!");
+				}
+				readJTable();
+				
+			}
+		});
 		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnNewButton_1.setBounds(361, 366, 153, 29);
 		contentPane.add(btnNewButton_1);

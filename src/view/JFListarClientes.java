@@ -87,6 +87,25 @@ public class JFListarClientes extends JFrame {
 		contentPane.add(btnCadastrar);
 		
 		JButton btnExcluir = new JButton("Excluir Cliente");
+		btnExcluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(JTClientes.getSelectedRow() != -1) {
+					
+					int opcao = JOptionPane.showConfirmDialog(null, "Você deseja excluir o cliente selecionado?", "Exclusão", JOptionPane.YES_NO_OPTION); // janela de confirmação de exclusão
+					
+					if(opcao == 0) {
+						ClienteDAO dao = new ClienteDAO();
+						Cliente c = new Cliente();
+						c.setIDCliente((int) JTClientes.getValueAt(JTClientes.getSelectedRow(),0));
+						dao.delete(c);
+					}
+					//operacao do botao
+				} else {
+					JOptionPane.showMessageDialog(null, "Selecione um cliente!");
+				}
+				readJTCliente();
+			}
+		});
 		btnExcluir.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnExcluir.setBounds(401, 319, 163, 29);
 		contentPane.add(btnExcluir);
@@ -113,6 +132,7 @@ public class JFListarClientes extends JFrame {
 		
 		readJTCliente();
 }
+	
 	
 	public void readJTCliente() {
 	DefaultTableModel modelo = (DefaultTableModel) JTClientes.getModel(); // pega o modelo da tabela
