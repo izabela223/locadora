@@ -46,7 +46,7 @@ public class JFCadastrarCliente extends JFrame {
 	 * Create the frame.
 	 */
 	public JFCadastrarCliente() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 488, 586);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -134,6 +134,7 @@ public class JFCadastrarCliente extends JFrame {
 				c.setTelefone(txtTelefone.getText());
 				
 				dao.create(c);
+				dispose();
 			}
 		});
 		
@@ -145,11 +146,26 @@ public class JFCadastrarCliente extends JFrame {
 		contentPane.add(btnCadastrar);
 		
 		JButton btnLimpar = new JButton("Limpar");
+		btnLimpar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				txtNome.setText(null);
+				txtCpf.setText(null);
+				txtEndereco.setText(null);
+				txtEmail.setText(null);
+				txtTelefone.setText(null);
+				txtData.setText(null);
+			}
+		});
 		btnLimpar.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnLimpar.setBounds(171, 485, 115, 29);
 		contentPane.add(btnLimpar);
 		
 		JButton btnCancelar = new JButton("Cancelar ");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
 		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnCancelar.setBounds(335, 485, 115, 29);
 		contentPane.add(btnCancelar);

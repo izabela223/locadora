@@ -22,6 +22,8 @@ import model.dao.FilmeDAO;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowFocusListener;
+import java.awt.event.WindowEvent;
 
 public class JFListarClientes extends JFrame {
 
@@ -48,7 +50,14 @@ public class JFListarClientes extends JFrame {
 	 * Create the frame.
 	 */
 	public JFListarClientes() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		addWindowFocusListener(new WindowFocusListener() {
+			public void windowGainedFocus(WindowEvent arg0) {
+				readJTCliente();
+			}
+			public void windowLostFocus(WindowEvent arg0) {
+			}
+		});
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 743, 420);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -82,8 +91,14 @@ public class JFListarClientes extends JFrame {
 		scrollPane.setViewportView(JTClientes);
 		
 		JButton btnCadastrar = new JButton("Cadastrar Cliente");
+		btnCadastrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFCadastrarCliente cc = new JFCadastrarCliente();
+				cc.setVisible(true);
+			}
+		});
 		btnCadastrar.setFont(new Font("Tahoma", Font.BOLD, 16));
-		btnCadastrar.setBounds(15, 319, 198, 29);
+		btnCadastrar.setBounds(15, 319, 181, 29);
 		contentPane.add(btnCadastrar);
 		
 		JButton btnExcluir = new JButton("Excluir Cliente");
@@ -107,7 +122,7 @@ public class JFListarClientes extends JFrame {
 			}
 		});
 		btnExcluir.setFont(new Font("Tahoma", Font.BOLD, 16));
-		btnExcluir.setBounds(401, 319, 163, 29);
+		btnExcluir.setBounds(379, 319, 163, 29);
 		contentPane.add(btnExcluir);
 		
 		JButton btnEditar = new JButton("Editar Cliente");
@@ -127,8 +142,18 @@ public class JFListarClientes extends JFrame {
 		});
 				
 		btnEditar.setFont(new Font("Tahoma", Font.BOLD, 16));
-		btnEditar.setBounds(228, 319, 153, 29);
+		btnEditar.setBounds(211, 319, 153, 29);
 		contentPane.add(btnEditar);
+		
+		JButton btnNewButton = new JButton("Cancelar");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 16));
+		btnNewButton.setBounds(557, 319, 126, 29);
+		contentPane.add(btnNewButton);
 		
 		readJTCliente();
 }
@@ -151,7 +176,6 @@ public class JFListarClientes extends JFrame {
 	}
 	
 	}
-	
 }
 		
 		

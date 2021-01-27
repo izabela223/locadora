@@ -21,6 +21,8 @@ import model.dao.FilmeDAO;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowFocusListener;
+import java.awt.event.WindowEvent;
 
 public class JFListarFilme extends JFrame {
 
@@ -47,7 +49,14 @@ public class JFListarFilme extends JFrame {
 	 * Create the frame.
 	 */
 	public JFListarFilme() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		addWindowFocusListener(new WindowFocusListener() {
+			public void windowGainedFocus(WindowEvent arg0) {
+				readJTable();
+			}
+			public void windowLostFocus(WindowEvent arg0) {
+			}
+		});
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 758, 467);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -81,6 +90,12 @@ public class JFListarFilme extends JFrame {
 		scrollPane.setViewportView(JTFilmes);
 		
 		JButton btnCadastrar = new JButton("Cadastrar Filme");
+		btnCadastrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFCadastrarFilme cf = new JFCadastrarFilme();
+				cf.setVisible(true);
+			}
+		});
 		btnCadastrar.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnCadastrar.setBounds(15, 366, 173, 29);
 		contentPane.add(btnCadastrar);
@@ -101,7 +116,7 @@ public class JFListarFilme extends JFrame {
 			}
 		});
 		btnEditar.setFont(new Font("Tahoma", Font.BOLD, 16));
-		btnEditar.setBounds(203, 366, 143, 29);
+		btnEditar.setBounds(222, 366, 143, 29);
 		contentPane.add(btnEditar);
 		
 		JButton btnNewButton_1 = new JButton("Excluir Filme");
@@ -126,8 +141,18 @@ public class JFListarFilme extends JFrame {
 			}
 		});
 		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 16));
-		btnNewButton_1.setBounds(361, 366, 153, 29);
+		btnNewButton_1.setBounds(399, 366, 153, 29);
 		contentPane.add(btnNewButton_1);
+		
+		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 16));
+		btnCancelar.setBounds(578, 366, 143, 29);
+		contentPane.add(btnCancelar);
 		
 		readJTable();
 	}
@@ -151,5 +176,4 @@ public class JFListarFilme extends JFrame {
 		}
 		
 	}
-	
 }

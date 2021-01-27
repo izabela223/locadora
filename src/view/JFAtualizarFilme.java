@@ -51,14 +51,14 @@ public class JFAtualizarFilme extends JFrame {
 	 * Create the frame.
 	 */
 	public JFAtualizarFilme(int id) {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 802, 578);
 		JPAlterarFilme = new JPanel();
 		JPAlterarFilme.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(JPAlterarFilme);
 		JPAlterarFilme.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Alterar Filme");
+		JLabel lblNewLabel = new JLabel("Atualizar Filme");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lblNewLabel.setBounds(15, 16, 171, 20);
 		JPAlterarFilme.add(lblNewLabel);
@@ -231,6 +231,7 @@ public class JFAtualizarFilme extends JFrame {
 					f.setDublado(false);
 				}
 				dao.update(f);
+				dispose();
 			}
 		});
 		
@@ -242,6 +243,18 @@ public class JFAtualizarFilme extends JFrame {
 		JPAlterarFilme.add(btnAlterar);
 		
 		JButton btnLimpar = new JButton("Limpar");
+		btnLimpar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				txtCategoria.setText(null);
+				txtClassificacao.setText(null);
+				txtTitulo.setText(null);
+				txtSinopse.setText(null);
+				spTempo.setValue(0);
+				status_filme.clearSelection();
+				imagem.clearSelection();
+				audio.clearSelection();		
+			}
+		});
 		btnLimpar.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnLimpar.setBounds(178, 477, 115, 29);
 		JPAlterarFilme.add(btnLimpar);
@@ -249,6 +262,7 @@ public class JFAtualizarFilme extends JFrame {
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				dispose();
 			}
 		});
 		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 16));
